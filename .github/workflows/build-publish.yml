@@ -33,6 +33,8 @@ jobs:
       run: mvn spring-boot:build-image -Dspring-boot.build-image.imageName=$IMAGE_NAME
 
     - name: Publish to GitHub Packages Apache Maven
-      run: docker push ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
+      run: |
+        docker tag $IMAGE_NAME ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
+        docker push ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME:latest
       env:
         GITHUB_TOKEN: ${{ github.token }}
